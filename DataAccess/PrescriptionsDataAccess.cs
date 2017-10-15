@@ -56,7 +56,7 @@ namespace PreskriptorAPI.DataAccess
                 dynamoConfig.RegionEndpoint=Amazon.RegionEndpoint.USWest2;
                 using (var dynamoClient = new AmazonDynamoDBClient(dynamoConfig))
                 {
-                    var table = Table.LoadTable(dynamoClient,"PrescriptionDetails");
+                    var table = Table.LoadTable(dynamoClient,"Prescriptions");
                     var item = Document.FromJson(_prescriptionJson);
                     document = await table.PutItemAsync(item,default(CancellationToken));
                 }
@@ -94,7 +94,7 @@ namespace PreskriptorAPI.DataAccess
                 dynamoConfig.RegionEndpoint=Amazon.RegionEndpoint.USWest2;
                 using (var dynamoClient = new AmazonDynamoDBClient(dynamoConfig))
                 {
-                    var table = Table.LoadTable(dynamoClient,"PrescriptionDetails");
+                    var table = Table.LoadTable(dynamoClient,"Prescriptions");
                     _prescription = await table.GetItemAsync(prescriptionID,default(CancellationToken));
                     _prescriptionJson = _prescription.ToJson();
                 }

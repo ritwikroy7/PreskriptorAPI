@@ -69,6 +69,7 @@ namespace PreskriptorAPI
             services.AddTransient<ITestsDataAccess, TestsDataAccess>();
             services.AddTransient<ILetterheadsDataAccess, LetterheadsDataAccess>();
             services.AddTransient<IPatientsDataAccess, PatientsDataAccess>();
+            services.AddTransient<IPrescriptionsDataAccess, PrescriptionsDataAccess>();
             services.AddTransient<IPrescriptionPDFGenerator, PrescriptionPDFGenerator>();            
         }
 
