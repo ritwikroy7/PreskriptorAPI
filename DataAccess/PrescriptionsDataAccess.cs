@@ -96,15 +96,22 @@ namespace PreskriptorAPI.DataAccess
                 {
                     var table = Table.LoadTable(dynamoClient,"Prescriptions");
                     _prescription = await table.GetItemAsync(prescriptionID,default(CancellationToken));
-                    _prescriptionJson = _prescription.ToJson();
+                    if(_prescription!=null)
+                    {
+                        _prescriptionJson = _prescription.ToJson();
+                    }   
                 }
-                try
+                if(_prescriptionJson!=null)
                 {
-                    prescription=JsonConvert.DeserializeObject<Prescription>(_prescriptionJson);
-                }
-                catch(JsonException jEx)
-                {
-                    throw jEx;
+                    try
+                    {
+                        prescription=JsonConvert.DeserializeObject<Prescription>(_prescriptionJson);
+                    }
+                    catch(JsonException jEx)
+                    {
+                        _log.LogError("Json Deserialization Exception: "+jEx.Message);
+                        throw new DataAccessException("An Error Occured While Retrieving Prescription From Database");
+                    }
                 }
             }
             catch (AmazonDynamoDBException dEx)

@@ -49,8 +49,9 @@ namespace PreskriptorAPI
                 //options.Configuration = "pub-redis-10931.us-west-2-1.1.ec2.garantiadata.com:10931";
                 options.Configuration = connect_Redis;
             });
-            services.AddMvc()
-                    .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.AddMvc();
+            //services.AddMvc()
+                    //.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddCors(options => 
             {
                 options.AddPolicy("PreskriptorPolicy", builder =>

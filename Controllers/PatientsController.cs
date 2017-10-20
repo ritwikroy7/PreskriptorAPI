@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace PreskriptorAPI.Controllers
 {
@@ -210,7 +211,7 @@ namespace PreskriptorAPI.Controllers
                 _distributedCache.SetString(cacheKey, JsonConvert.SerializeObject(patientNameList),cacheEntryOptions);
                 if(patientNameList.Count!=0)
                 {
-                    return Ok(patientNameList);
+                    return Ok(patientNameList.Distinct());
                 }
                 else
                 {

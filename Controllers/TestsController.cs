@@ -177,19 +177,19 @@ namespace PreskriptorAPI.Controllers
         /// <response code="200">Test types retrieved.</response>
         /// <response code="404">No tests found in database table.</response>
         /// <response code="500">Server error while retrieving test types.</response>
-        [HttpGet("Trade-Names")]
+        [HttpGet("Types")]
         [ProducesResponseType(typeof(List<string>),200)]
         [ProducesResponseType(typeof(string),404)]
         [ProducesResponseType(typeof(string),500)]
-        public async Task<IActionResult> TradeNames()
+        public async Task<IActionResult> Types()
         {
             var typeList = (List<string>)null;
-            var cacheKey = "TypeCache";
-            var tradeNameCache=_distributedCache.GetString(cacheKey);
+            var cacheKey = "TestTypeCache";
+            var testTypeCache=_distributedCache.GetString(cacheKey);
 
-            if (!string.IsNullOrWhiteSpace(Convert.ToString(tradeNameCache)))
+            if (!string.IsNullOrWhiteSpace(Convert.ToString(testTypeCache)))
             {
-                return Ok(tradeNameCache);
+                return Ok(testTypeCache);
             }
             else
             {
@@ -214,7 +214,7 @@ namespace PreskriptorAPI.Controllers
                 }
                 else
                 {
-                    return NotFound("No drugs found in database table.");
+                    return NotFound("No tests found in database table.");
                 }
             }
         }
