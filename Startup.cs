@@ -13,6 +13,8 @@ using System.Net;
 using Newtonsoft.Json.Serialization;
 using PreskriptorAPI.DataAccess;
 using PreskriptorAPI.PDFGenerator;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace PreskriptorAPI
 {
@@ -58,6 +60,10 @@ namespace PreskriptorAPI
                     .AllowAnyMethod();
                 });
             });
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("PreskriptorPolicy"));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1.0", new Info { Title = "PreskriptorAPI", Version = "v1.0" });
@@ -86,6 +92,7 @@ namespace PreskriptorAPI
             };
             app.UseJwtBearerAuthentication(options);
             app.UseMvc();
+            app.UseCors("PreskriptorPolicy");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
