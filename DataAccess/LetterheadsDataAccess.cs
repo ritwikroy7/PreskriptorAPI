@@ -34,7 +34,7 @@ namespace PreskriptorAPI.DataAccess
             {
                 var dynamoConfig = new AmazonDynamoDBConfig(); 
                 dynamoConfig.RegionEndpoint=Amazon.RegionEndpoint.USWest2;
-                using (var dynamoClient = new AmazonDynamoDBClient())
+                using (var dynamoClient = new AmazonDynamoDBClient(dynamoConfig))
                 {
                     var table = Table.LoadTable(dynamoClient,"HeaderMaster");
                     ScanFilter scanFilter = new ScanFilter();
@@ -98,7 +98,7 @@ namespace PreskriptorAPI.DataAccess
             {
                 var dynamoConfig = new AmazonDynamoDBConfig(); 
                 dynamoConfig.RegionEndpoint=Amazon.RegionEndpoint.USWest2;
-                using (var dynamoClient = new AmazonDynamoDBClient())
+                using (var dynamoClient = new AmazonDynamoDBClient(dynamoConfig))
                 {
                     var table = Table.LoadTable(dynamoClient,"HeaderMaster");
                     var pItem = Document.FromJson(_letterheadJson);
@@ -136,7 +136,7 @@ namespace PreskriptorAPI.DataAccess
             {
                 var dynamoConfig = new AmazonDynamoDBConfig(); 
                 dynamoConfig.RegionEndpoint=Amazon.RegionEndpoint.USWest2;
-                using (var dynamoClient = new AmazonDynamoDBClient())
+                using (var dynamoClient = new AmazonDynamoDBClient(dynamoConfig))
                 {
                     var table = Table.LoadTable(dynamoClient,"HeaderMaster");
                     _letterhead = await table.GetItemAsync(chamberName,default(CancellationToken));
@@ -187,7 +187,7 @@ namespace PreskriptorAPI.DataAccess
             {
                 var dynamoConfig = new AmazonDynamoDBConfig(); 
                 dynamoConfig.RegionEndpoint=Amazon.RegionEndpoint.USWest2;
-                using (var dynamoClient = new AmazonDynamoDBClient())
+                using (var dynamoClient = new AmazonDynamoDBClient(dynamoConfig))
                 {
                     var table = Table.LoadTable(dynamoClient,"HeaderMaster");
                     document = await table.DeleteItemAsync(chamberName,default(CancellationToken));

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace PreskriptorAPI.Controllers
 {
@@ -58,7 +59,7 @@ namespace PreskriptorAPI.Controllers
                 }
                 var cacheEntryOptions = new DistributedCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
-                _distributedCache.SetString(cacheKey, JsonConvert.SerializeObject(letterheadList),cacheEntryOptions);
+                _distributedCache.SetString(cacheKey, JsonConvert.SerializeObject(letterheadList, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver()}),cacheEntryOptions);
                 if(letterheadList.Count!=0)
                 {
                     return Ok(letterheadList);

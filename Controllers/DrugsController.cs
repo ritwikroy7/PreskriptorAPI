@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace PreskriptorAPI.Controllers
 {
@@ -29,7 +30,7 @@ namespace PreskriptorAPI.Controllers
         /// <response code="404">No drugs found in database table.</response>
         /// <response code="500">Server error while retrieving drug list.</response>
         [HttpGet]
-        [ResponseCache(Duration=30)]
+        //[ResponseCache(Duration=30)]
         [ProducesResponseType(typeof(List<Drug>),200)]
         [ProducesResponseType(typeof(string),404)]
         [ProducesResponseType(typeof(string),500)]
@@ -58,7 +59,7 @@ namespace PreskriptorAPI.Controllers
                 }
                 var cacheEntryOptions = new DistributedCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
-                _distributedCache.SetString(cacheKey, JsonConvert.SerializeObject(drugList),cacheEntryOptions);
+                _distributedCache.SetString(cacheKey, JsonConvert.SerializeObject(drugList, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver()}),cacheEntryOptions);
                 if(drugList.Count!=0)
                 {
                     return Ok(drugList);
