@@ -209,7 +209,7 @@ namespace PreskriptorAPI.Controllers
                 }
                 var cacheEntryOptions = new DistributedCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
-                _distributedCache.SetString(cacheKey, JsonConvert.SerializeObject(patientNameList),cacheEntryOptions);
+                _distributedCache.SetString(cacheKey, JsonConvert.SerializeObject(patientNameList.Distinct()),cacheEntryOptions);
                 if(patientNameList.Count!=0)
                 {
                     return Ok(patientNameList.Distinct());
