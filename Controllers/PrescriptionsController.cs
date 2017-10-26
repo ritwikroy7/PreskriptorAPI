@@ -170,7 +170,7 @@ namespace PreskriptorAPI.Controllers
                             medication.Composition = new List<string>();
                             drug = new Drug();
                             drug =  await _drugsDataAccess.GetDrugAsync(medication.TradeName);
-                            if(drug.Composition!=null)
+                            if(drug!=null)
                             {
                                 medication.Composition=drug.Composition;
                             }
@@ -181,7 +181,10 @@ namespace PreskriptorAPI.Controllers
                     {
                         var letterhead = (Letterhead)null;
                         letterhead=await _letterheadsDataAccess.GetLetterheadAsync(prescription.Letterhead.ChamberName);
-                        prescription.Letterhead=letterhead;
+                        if(letterhead!=null)
+                        {
+                            prescription.Letterhead=letterhead;
+                        }
                     }
 
                     await _prescriptionsDataAccess.SavePrescriptionAsync(prescription);
