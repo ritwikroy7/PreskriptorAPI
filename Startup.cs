@@ -51,16 +51,6 @@ namespace PreskriptorAPI
                 //options.Configuration = "pub-redis-10931.us-west-2-1.1.ec2.garantiadata.com:10931";
                 options.Configuration = connect_Redis;
             });
-            services.AddMvc(config =>
-            {
-                var PreskriptorAuthPolicy = new AuthorizationPolicyBuilder()
-                                .RequireAuthenticatedUser()
-                                .Build();
-                config.Filters.Add(new AuthorizeFilter(PreskriptorAuthPolicy));
-            });
-            //services.AddMvc();
-            //services.AddMvc()
-                    //.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddCors(options => 
             {
                 options.AddPolicy("PreskriptorCORSPolicy", builder =>
@@ -74,6 +64,17 @@ namespace PreskriptorAPI
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("PreskriptorCORSPolicy"));
             });
+            services.AddMvc(config =>
+            {
+                var PreskriptorAuthPolicy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                config.Filters.Add(new AuthorizeFilter(PreskriptorAuthPolicy));
+            });
+            //services.AddMvc();
+            //services.AddMvc()
+                    //.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1.0", new Info { Title = "PreskriptorAPI", Version = "v1.0" });
@@ -101,8 +102,8 @@ namespace PreskriptorAPI
                 Authority = $"https://{Configuration["Auth0:Domain"]}/"
             };
             app.UseJwtBearerAuthentication(options);
-            app.UseMvc();
             app.UseCors("PreskriptorCORSPolicy");
+            app.UseMvc();            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

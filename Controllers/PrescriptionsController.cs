@@ -158,7 +158,7 @@ namespace PreskriptorAPI.Controllers
                 {
                     if(String.IsNullOrWhiteSpace(prescription.PrescriptionID))
                     {
-                        prescription.PrescriptionID=Convert.ToString(new Guid());
+                        prescription.PrescriptionID=Convert.ToString(Guid.NewGuid());
                         prescription.PatientInfo.PatientID=prescription.PrescriptionID;
                     }
 

@@ -566,6 +566,11 @@ namespace PreskriptorAPI.PDFGenerator
 
                         C_Medication_Drug = new PdfPCell(new Paragraph(prescription.Medications.ElementAt(i).TradeName.ToString(), f_data));
                         C_Medication_Composition = new PdfPCell(new Paragraph(composition.ToString(), f_data));
+                        if(prescription.Medications.ElementAt(i).Dosage==null)
+                        {
+                            prescription.Medications.ElementAt(i).Dosage=string.Empty;
+                        }
+
                         C_Medication_Dosage = new PdfPCell(new Paragraph(prescription.Medications.ElementAt(i).Dosage.ToString(), f_data));
 
                         //Aligning the Cells
