@@ -40,10 +40,12 @@ namespace PreskriptorAPI
             // Add framework services.
             // Due To https://github.com/dotnet/corefx/issues/8768
             // Temporary fix here https://github.com/StackExchange/StackExchange.Redis/issues/463
-            var dns_Redis_Task = Dns.GetHostAddressesAsync("pub-redis-10931.us-west-2-1.1.ec2.garantiadata.com");
+            //var dns_Redis_Task = Dns.GetHostAddressesAsync("pub-redis-10931.us-west-2-1.1.ec2.garantiadata.com");
+            var dns_Redis_Task = Dns.GetHostAddressesAsync("redis-10273.c17.us-east-1-4.ec2.cloud.redislabs.com");
             var addresses = dns_Redis_Task.Result;
-            var connect_Redis = string.Join(",", addresses.Select(x => x.MapToIPv4().ToString() + ":" + "10931"));
-            
+            //var connect_Redis = string.Join(",", addresses.Select(x => x.MapToIPv4().ToString() + ":" + "10931"));
+            var connect_Redis = string.Join(",", addresses.Select(x => x.MapToIPv4().ToString() + ":" + "10273"));
+
             // Add framework services.
             services.AddDistributedRedisCache(options =>
             {
