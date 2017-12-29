@@ -109,7 +109,7 @@ namespace PreskriptorAPI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "PreskriptorAPI v1.0");
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "PreskriptorAPI v1.1");
             });
         }
     }

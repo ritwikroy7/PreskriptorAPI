@@ -1,6 +1,6 @@
 
-FROM microsoft/aspnetcore:1.1.1
-LABEL Name="preskriptor-api" Version="1.0"
+FROM microsoft/aspnetcore:1.1.5
+LABEL Name="preskriptor-api" Version="1.1"
 COPY out /app
 WORKDIR /app
 EXPOSE 5000/tcp
